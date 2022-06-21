@@ -10,6 +10,7 @@ export const QuestionType = Object.freeze({
   Date: 'FlowFormDateType',
   Dropdown: 'FlowFormDropdownType',
   Email: 'FlowFormEmailType',
+  EmailWithConsent: 'FlowFormEmailWithConsentType',
   LongText: 'FlowFormLongTextType',
   MultipleChoice: 'FlowFormMultipleChoiceType',
   MultiplePictureChoice: 'FlowFormMultiplePictureChoiceType',
@@ -114,7 +115,7 @@ export default class QuestionModel {
       if (!this.placeholder) {
         this.placeholder = this.mask
       }
-    } 
+    }
 
     if (this.type === QuestionType.Url) {
       this.mask = null

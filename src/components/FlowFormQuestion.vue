@@ -52,8 +52,8 @@
         <p v-if="question.description || question.descriptionLink.length !== 0" class="f-description">
           <span v-if="question.description">{{ question.description }}</span>
           <a
-            v-for="(link, index) in question.descriptionLink" 
-            class="f-link" 
+            v-for="(link, index) in question.descriptionLink"
+            class="f-link"
             v-bind:key="'m' + index"
             v-bind:href="link.url"
             v-bind:target="link.target"
@@ -62,7 +62,7 @@
 
       </div>
       <div class="vff-animate f-fade-in f-enter" v-if="showOkButton()">
-        <button 
+        <button
           class="o-btn-action"
           type="button"
           ref="button"
@@ -74,7 +74,7 @@
             <span v-else-if="showSkip()">{{ language.skip }}</span>
             <span v-else>{{ language.ok }}</span>
         </button>
-        <a 
+        <a
           class="f-enter-desc"
           href="#"
           v-if="question.type !== QuestionType.LongText || !isMobile"
@@ -99,6 +99,7 @@
   import QuestionModel, { QuestionType, LinkOption } from '../models/QuestionModel'
   import FlowFormDropdownType from './QuestionTypes/DropdownType.vue'
   import FlowFormEmailType from './QuestionTypes/EmailType.vue'
+  import FlowFormEmailWithConsentType from './QuestionTypes/EmailWithConsentType.vue'
   import FlowFormLongTextType from './QuestionTypes/LongTextType.vue'
   import FlowFormMultipleChoiceType from './QuestionTypes/MultipleChoiceType.vue'
   import FlowFormMultiplePictureChoiceType from './QuestionTypes/MultiplePictureChoiceType.vue'
@@ -110,7 +111,7 @@
   import FlowFormUrlType from './QuestionTypes/UrlType.vue'
   import FlowFormDateType from './QuestionTypes/DateType.vue'
   import { IsMobile } from '../mixins/IsMobile'
-  
+
 
   export default {
     name: 'FlowFormQuestion',
@@ -118,6 +119,7 @@
       FlowFormDateType,
       FlowFormDropdownType,
       FlowFormEmailType,
+      FlowFormEmailWithConsentType,
       FlowFormLongTextType,
       FlowFormMultipleChoiceType,
       FlowFormMultiplePictureChoiceType,
@@ -166,7 +168,7 @@
        */
       focusField() {
         const el = this.$refs.questionComponent
-        
+
         el && el.focus()
       },
 
@@ -190,7 +192,7 @@
 
       /**
        * Emits "answer" event and calls "onEnter" method on Enter press
-       */ 
+       */
       onEnter($event) {
         this.checkAnswer(this.emitAnswer)
       },
@@ -223,7 +225,7 @@
         if (q && this.question.type !== QuestionType.Date) {
           this.returnFocus()
           this.$emit('answer', q)
-          
+
           q.onEnter()
         }
       },
@@ -231,13 +233,13 @@
       debounce(fn, delay) {
         let debounceTimer
         this.debounced = true
-      
+
         return (() => {
           clearTimeout(debounceTimer)
           debounceTimer = setTimeout(fn, delay)
         })()
       },
-      
+
       /**
        * Check if the "OK" button should be shown.
        */
@@ -259,7 +261,7 @@
         if (QuestionType.MultipleChoice && !this.question.multiple && this.question.nextStepOnAnswer) {
           return false
         }
-      
+
         // If there is no question referenced, or dataValue is still set to its default (null).
         // This allows a ChoiceOption value of false, but will not allow you to use null as a value.
         if (!q || this.dataValue === null) {
